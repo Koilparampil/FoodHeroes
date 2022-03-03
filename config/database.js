@@ -1,10 +1,11 @@
 // config/database.js
+require('dotenv').config();
 module.exports = {
     'connection': {
         'host': 'localhost',
-        'user': 'root',
-        'password': 'Plokmn0978=-'
+        'user': process.env.DB_USER,
+        'password': process.env.DB_PASSWORD
     },
-	'database': 'my_schema',
+	'database': process.env.DB_NAME,
     'users_table': 'users'
 };

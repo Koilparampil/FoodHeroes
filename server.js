@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
 var port     = process.env.PORT || 8080;
-
+require('./auth');
 var passport = require('passport');
 var flash    = require('connect-flash');
 
@@ -32,7 +32,7 @@ app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
 app.use(session({
-	secret: 'keyboard Kat',
+	secret: process.env.SESSION_SECRET,
 	resave: true,
 	saveUninitialized: true
  } )); // session secret
@@ -45,5 +45,5 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 
 // launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+app.listen(port, ()=> console.log(`listening on port ${port}`));
+

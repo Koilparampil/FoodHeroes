@@ -2,7 +2,7 @@
   "name": "node-authentication",
   "main": "server.js",
   "scripts": {
-    "start": "node ./server"
+    "start": "nodemon ./server"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -15,8 +15,8 @@
     "morgan": "^1.6.0",
     "mysql2": "^2.3.3",
     "passport": "^0.2.2",
-    "passport-google-oauth": "^2.0.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "dotenv": "^16.0.0"
   }
 }

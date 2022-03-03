@@ -69,15 +69,25 @@ module.exports = function(app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
+
+	app.get('/auth/google',
+		passport.authenticate('google', {scope: ['email', 'profile']})	
+	);
+	app.get('/google/callback',
+		passport.authenticate('google',{
+			successRedirect:'/profile',
+			failureRedirect: '/auth/failure',
+		})
+	);
+	
+	app.get('/auth/failure', (req,res) => {
+		res.send('something went wrong...')
+	});
+
+
 };
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {
-
-	// if user is authenticated in the session, carry on
-	if (req.isAuthenticated())
-		return next();
-
-	// if they aren't redirect them to the home page
-	res.redirect('/');
+	req.user ? next(): res.sendStatus(401);
 }
