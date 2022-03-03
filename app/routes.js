@@ -76,19 +76,19 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
+	// =====================================
+	// Google Authentication ===============
+	// =====================================
 	app.get('/auth/google',
 		passport.authenticate('google', {scope: ['email', 'profile']})	
 	);
 	app.get('/google/callback',
 		passport.authenticate('google',{
 			successRedirect:'/welcomePage',
-			failureRedirect: 'index.js',
+			failureRedirect: '/',
 		})
 	);
 	
-	app.get('/auth/failure', (req,res) => {
-		res.send('something went wrong...')
-	});
 
 
 };
