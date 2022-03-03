@@ -14,7 +14,7 @@ passport.use(new GoogleStrategy({
   },
   function(request, accessToken, refreshToken, profile, done) {
     console.log(profile)
-    connection.query(`INSERT INTO users ( username ) values ('${profile.displayName}')`,function(err, rows) {if(err){console.error(err)}});  
+    //connection.query(`INSERT INTO users ( username ) values ('${profile.displayName}')`,function(err, rows) {if(err){console.error(err)}});  
     return done(null, profile);
   }
 ));

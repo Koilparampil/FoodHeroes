@@ -61,6 +61,12 @@ module.exports = function(app, passport) {
 			user : req.user // get the user out of session and pass to template
 		});
 	});
+	app.get('/welcomePage',isLoggedIn, function(req,res){
+		res.render('welcomePage.ejs',{
+			user: req.user
+		});
+	});
+
 
 	// =====================================
 	// LOGOUT ==============================
@@ -75,7 +81,7 @@ module.exports = function(app, passport) {
 	);
 	app.get('/google/callback',
 		passport.authenticate('google',{
-			successRedirect:'/profile',
+			successRedirect:'/welcomePage',
 			failureRedirect: '/auth/failure',
 		})
 	);
