@@ -46,7 +46,6 @@ module.exports = function(passport) {
         function(req, username, password, done) {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows) {
                 if (err)
                     return done(err);
@@ -57,13 +56,15 @@ module.exports = function(passport) {
                     // create the user
                     var newUserMysql = {
                         username: username,
-                        password: bcrypt.hashSync(password, null, null)  // use the generateHash function in our user model
+                        password: bcrypt.hashSync(password, null, null),// use the generateHash function in our user model
+                        l_name: req.body.l_name,
+                        f_name: req.body.f_name
                     };
 
-                    connection.query(`INSERT INTO users ( username, password ) values ('${newUserMysql.username}','${newUserMysql.password}')`,function(err, rows) {if(err){console.error(err)}});
+                    connection.query(`INSERT INTO users ( username, password,first_name,last_name ) values ('${newUserMysql.username}','${newUserMysql.password}','${newUserMysql.f_name}','${newUserMysql.l_name}')`,function(err, rows) {if(err){console.error(err)}});
                     connection.query('SELECT LAST_INSERT_ID() AS id', function (error, results, fields) {
                         if (error) throw error;
-                        console.log(results[0].id);
+                        // console.log(results[0].id);
                         newUserMysql.id = results[0].id;
                         return done(null, newUserMysql);
                       });

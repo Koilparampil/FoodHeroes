@@ -1,4 +1,11 @@
 // app/routes.js
+var bcrypt = require('bcrypt-nodejs');
+var mysql = require('mysql2');
+var dbconfig = require('../config/database');
+
+var connection = mysql.createConnection(dbconfig.connection);
+connection.connect();
+connection.query('USE ' + dbconfig.database);
 module.exports = function(app, passport) {
 
 	// =====================================
@@ -43,11 +50,15 @@ module.exports = function(app, passport) {
 		// render the page and pass in any flash data if it exists
 		res.render('signup.ejs', { message: req.flash('signupMessage') });
 	});
+	app.get('/signupFailure', function(req, res) {
+		// render the page and pass in any flash data if it exists
+		res.render('signupFail.ejs', { message: req.flash('signupMessage') });
+	});
 
 	// process the signup form
 	app.post('/signup', passport.authenticate('local-signup', {
 		successRedirect : '/welcomePage', // redirect to the secure profile section
-		failureRedirect : '/signup', // redirect back to the signup page if there is an error
+		failureRedirect : '/signupFailure', // redirect back to the signup page if there is an error
 		failureFlash : true // allow flash messages
 	}));
 
@@ -65,6 +76,7 @@ module.exports = function(app, passport) {
 		res.render('welcomePage.ejs',{
 			user: req.user
 		});
+		//console.log(req.user)
 	});
 
 
@@ -76,20 +88,37 @@ module.exports = function(app, passport) {
 		res.redirect('/');
 	});
 
+	// =====================================
+	// Google Authentication ===============
+	// =====================================
 	app.get('/auth/google',
 		passport.authenticate('google', {scope: ['email', 'profile']})	
 	);
 	app.get('/google/callback',
 		passport.authenticate('google',{
-			successRedirect:'/welcomePage',
-			failureRedirect: 'index.js',
+			successRedirect:'/choosePassword',
+			failureRedirect: '/',
 		})
 	);
-	
-	app.get('/auth/failure', (req,res) => {
-		res.send('something went wrong...')
+	app.get('/choosePassword', function(req, res) {
+		// render the page and pass in any flash data if it exists
+		//console.log(req.user)
+		connection.query(`SELECT password FROM users WHERE username = '${req.user.username}'`, function(err,rows){
+			if (err) throw error;
+			console.log(rows[0].password)
+			if(!(rows[0].password===null)){
+				console.log("theres already a Password")
+				res.redirect('/welcomePage')
+			}else{
+				res.render('signupG.ejs', { message: req.flash('signupGMessage') });
+			}
+		})
 	});
-
+	app.post('/signupG', function(req,res){
+		//console.log(req)
+		connection.query(`UPDATE users SET password='${bcrypt.hashSync(req.body.password)}' WHERE username='${req.user.username}';`, function(err,rows){if(err){console.error(err)}})
+		res.redirect('/welcomePage')
+	});
 
 };
 
