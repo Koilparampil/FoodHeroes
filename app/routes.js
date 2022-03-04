@@ -76,6 +76,7 @@ module.exports = function(app, passport) {
 		res.render('welcomePage.ejs',{
 			user: req.user
 		});
+		//console.log(req.user)
 	});
 
 
@@ -101,10 +102,21 @@ module.exports = function(app, passport) {
 	);
 	app.get('/choosePassword', function(req, res) {
 		// render the page and pass in any flash data if it exists
-		res.render('signupG.ejs', { message: req.flash('signupGMessage') });
+		//console.log(req.user)
+		connection.query(`SELECT password FROM users WHERE username = '${req.user.username}'`, function(err,rows){
+			if (err) throw error;
+			console.log(rows[0].password)
+			if(!(rows[0].password===null)){
+				console.log("theres already a Password")
+				res.redirect('/welcomePage')
+			}else{
+				res.render('signupG.ejs', { message: req.flash('signupGMessage') });
+			}
+		})
 	});
 	app.post('/signupG', function(req,res){
-		connection.query(`UPDATE users SET password='${bcrypt.hashSync(req.body.password)}' WHERE username='${req.user.emails[0].value}';`, function(err,rows){if(err){console.error(err)}})
+		//console.log(req)
+		connection.query(`UPDATE users SET password='${bcrypt.hashSync(req.body.password)}' WHERE username='${req.user.username}';`, function(err,rows){if(err){console.error(err)}})
 		res.redirect('/welcomePage')
 	});
 
