@@ -64,7 +64,7 @@ module.exports = function(passport) {
                     connection.query(`INSERT INTO users ( username, password,first_name,last_name ) values ('${newUserMysql.username}','${newUserMysql.password}','${newUserMysql.f_name}','${newUserMysql.l_name}')`,function(err, rows) {if(err){console.error(err)}});
                     connection.query('SELECT LAST_INSERT_ID() AS id', function (error, results, fields) {
                         if (error) throw error;
-                        console.log(results[0].id);
+                        // console.log(results[0].id);
                         newUserMysql.id = results[0].id;
                         return done(null, newUserMysql);
                       });

@@ -15,31 +15,19 @@
 <div class="col-sm-6 col-sm-offset-3">
 
 	<h1><span class="fa fa-sign-in"></span> Signup</h1>
-
+	<h2>Please, Choose a Password for your account</h2>
 	<!-- show any messages that come back with authentication -->
 	<% if (message.length > 0) { %>
 		<div class="alert alert-danger"><%= message %></div>
 	<% } %>
 
 	<!-- LOGIN FORM -->
-	<form action="/signup" method="post">
-		<div class="form-group">
-			<label>Username</label>
-			<input type="text" class="form-control" name="username">
-		</div>
+	<form action="/signupG" method="post">
 		<div class="form-group">
 			<label>Password</label>
 			<input type="password" class="form-control" name="password">
 		</div>
-		<div class="form-group">
-			<label>First Name</label>
-			<input type="text" class="form-control" name="f_name">
-		</div>
-		<div class="form-group">
-			<label>Last Name</label>
-			<input type="text" class="form-control" name="l_name">
-		</div>
-		<button type="submit" class="btn btn-warning btn-lg">Signup</button>
+		<button type="submit" class="btn btn-warning btn-lg">Finish Signup</button>
 	</form>
 
 	<hr>

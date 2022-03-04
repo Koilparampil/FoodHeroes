@@ -13,7 +13,7 @@ connection.query('\
 CREATE TABLE `' + dbconfig.database + '`.`' + dbconfig.users_table + '` ( \
     `id` INT NOT NULL AUTO_INCREMENT, \
     `username` VARCHAR(60) NOT NULL, \
-    `password` CHAR(60) NOT NULL, \
+    `password` CHAR(60), \
     `first_name` VARCHAR(60),\
     `last_name` VARCHAR(60),\
         PRIMARY KEY (`id`), \
