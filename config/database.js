@@ -10,3 +10,4 @@ module.exports = {
   database: process.env.DB_NAME,
   users_table: "users",
 };
+
