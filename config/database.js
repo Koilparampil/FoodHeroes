@@ -5,7 +5,7 @@ require("dotenv").config();
 
 module.exports = {
   connection: {
-    host: "localhost",
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     port: 3306,
