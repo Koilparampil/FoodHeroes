@@ -63,7 +63,7 @@ module.exports = function(app, passport) {
 	}));
 
 	// =====================================
-	// PROFILE SECTION =========================
+	// Logged In SECTION =========================
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
@@ -71,12 +71,17 @@ module.exports = function(app, passport) {
 		res.render('profile.ejs', {
 			user : req.user // get the user out of session and pass to template
 		});
+		//console.log(req.user)
 	});
 	app.get('/welcomePage',isLoggedIn, function(req,res){
-		res.render('welcomePage.ejs',{
-			user: req.user
+		connection.query(`SELECT password FROM users WHERE username = '${req.user.username}'`, function(err,rows){
+			if (err) throw error;
+			//console.log(rows[0].password)
+			req.session.passport.user.password=rows[0].password
+			res.render('welcomePage.ejs',{
+				user: req.user
+			});
 		});
-		//console.log(req.user)
 	});
 
 
