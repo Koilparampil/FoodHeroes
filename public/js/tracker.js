@@ -34,11 +34,6 @@ const trackerForm = document.getElementById("trackerForm")
                 'Content-Type': 'application/json',
             },
             body:JSON.stringify(postBody)
-        }).then(fetch('/RestaurantTracker',{
-            method:"GET",
-            headers:{
-                'Content-Type': 'application/json',
-            },
-        }));
+        }).then(window.location.reload())
     })
 }
