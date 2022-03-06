@@ -83,9 +83,18 @@ module.exports = function(app, passport) {
 			});
 		});
 	});
-	app.get('/RestaurantTracker',isLoggedIn,function(req,res){
+	app.get('/RestaurantTracker',isLoggedIn, async function(req,res){
+		let restaurantData= await connection.promise().query(`SELECT * FROM restaurants WHERE user_id = ${req.user.id}`)
+		//console.log(restaurantData[0]);
+		let hasBeen=[]
+		let want2Go=[]
+		restaurantData[0].forEach((item)=> item.has_been===1 ? hasBeen.push(item):want2Go.push(item))
+		//console.log(hasBeen);
+		//console.log(want2Go);
 		res.render('resTracker.ejs',{
-			user: req.user
+			user: req.user,
+			want2Go: want2Go,
+			hasBeen: hasBeen
 		});
 	})
 

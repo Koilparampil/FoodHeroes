@@ -47,7 +47,9 @@
                 <div class="boxed">
                     <div>
                         <ul class="haveBeen">
-
+                            <% hasBeen.forEach(function(item) { %>
+                                <li> <%= item.restaurant_name %></li>
+                             <% }); %> 
                         </ul>
                     </div>
                 </div>
@@ -61,7 +63,9 @@
                 <div class="boxed">
                     <div>
                         <ul class="haveNotBeen">
-
+                            <% want2Go.forEach(function(item) { %>
+                                <li> <%= item.restaurant_name %></li>
+                             <% }); %> 
                         </ul>
                     </div>
                 </div>
