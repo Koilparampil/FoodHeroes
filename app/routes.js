@@ -83,7 +83,11 @@ module.exports = function(app, passport) {
 			});
 		});
 	});
-
+	app.get('/RestaurantTracker',isLoggedIn,function(req,res){
+		res.render('resTracker.ejs',{
+			user: req.user
+		});
+	})
 
 	// =====================================
 	// LOGOUT ==============================
@@ -110,7 +114,7 @@ module.exports = function(app, passport) {
 		//console.log(req.user)
 		connection.query(`SELECT password FROM users WHERE username = '${req.user.username}'`, function(err,rows){
 			if (err) throw error;
-			console.log(rows[0].password)
+			//console.log(rows[0].password)
 			if(!(rows[0].password===null)){
 				console.log("theres already a Password")
 				res.redirect('/welcomePage')
