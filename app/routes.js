@@ -66,14 +66,9 @@ module.exports = function (app, passport) {
     })
   );
 
-<<<<<<< HEAD
-  // =====================================
-  // Logged In SECTION =========================
-=======
 
   // =====================================
   // PROFILE SECTION =========================
->>>>>>> f785d8a2f0f2a9ea6a184bdd3939eeedce39002d
   // =====================================
   // we will want this protected so you have to be logged in to visit
   // we will use route middleware to verify this (the isLoggedIn function)
@@ -81,41 +76,6 @@ module.exports = function (app, passport) {
     res.render("profile.ejs", {
       user: req.user, // get the user out of session and pass to template
     });
-<<<<<<< HEAD
-    //console.log(req.user)
-  });
-  app.get("/welcomePage", isLoggedIn, function (req, res) {
-    connection.query(
-      `SELECT password FROM users WHERE username = '${req.user.username}'`,
-      function (err, rows) {
-        if (err) throw error;
-        //console.log(rows[0].password)
-        req.session.passport.user.password = rows[0].password;
-        res.render("welcomePage.ejs", {
-          user: req.user,
-        });
-      }
-    );
-  });
-  app.get("/RestaurantTracker", isLoggedIn, async function (req, res) {
-    let restaurantData = await connection
-      .promise()
-      .query(`SELECT * FROM restaurants WHERE user_id = ${req.user.id}`);
-    //console.log(restaurantData[0]);
-    let hasBeen = [];
-    let want2Go = [];
-    restaurantData[0].forEach((item) =>
-      item.has_been === 1 ? hasBeen.push(item) : want2Go.push(item)
-    );
-    //console.log(hasBeen);
-    //console.log(want2Go);
-    res.render("resTracker.ejs", {
-      user: req.user,
-      want2Go: want2Go,
-      hasBeen: hasBeen,
-    });
-  });
-=======
   });
 
   app.get("/aboutus", function (req, res) {
@@ -158,7 +118,6 @@ module.exports = function (app, passport) {
 			hasBeen: hasBeen
 		});
 	})
->>>>>>> f785d8a2f0f2a9ea6a184bdd3939eeedce39002d
 
   app.get("/welcomePage", isLoggedIn, function (req, res) {
     res.render("welcomePage.ejs", {
