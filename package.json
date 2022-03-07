@@ -2,7 +2,8 @@
   "name": "node-authentication",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon ./server"
+    "start": "node ./server",
+    "test": "nodemon ./server"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
