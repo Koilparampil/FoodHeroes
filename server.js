@@ -29,6 +29,8 @@ app.use(
 
 app.set("view engine", "ejs"); // set up ejs for templating
 
+
+
 // required for passport
 app.use(
   session({
@@ -48,3 +50,4 @@ const api = require('./app/index.js');
 app.use('/api', api);
 // launch ======================================================================
 app.listen(port, () => console.log(`listening on port ${port}`));
+

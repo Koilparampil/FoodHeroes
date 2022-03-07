@@ -17,6 +17,7 @@ CREATE TABLE `' + dbconfig.database + '`.`' + dbconfig.users_table + '` ( \
     `password` CHAR(60), \
     `first_name` VARCHAR(60),\
     `last_name` VARCHAR(60),\
+    `about_me` LONGTEXT,\
         PRIMARY KEY (`id`), \
     UNIQUE INDEX `id_UNIQUE` (`id` ASC), \
     UNIQUE INDEX `username_UNIQUE` (`username` ASC) \
