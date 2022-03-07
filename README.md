@@ -1,23 +1,42 @@
-# Complete Guide to Node Authentication with MySQL
+# Food Heroes
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## Description
 
-Code for the entire scotch.io tutorial series: Complete Guide to Node Authentication with MongoDB
+A login based application in which the user can log their favorite resturaunts or resturaunts they'd like to visit.
 
-Current version database is ported to MySQL
+## Table of Contents
 
-We will be using Passport to authenticate users locally, 
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
 
-## Instructions
+## Installation
 
-If you would like to download the code and try it for yourself:
+Node js, mysql2, express
 
-1. Clone the repo: `git clone git@github.com:manjeshpv/node-express-passport-mysql.git`
-1. Install packages: `npm install`
-1. Edit the database configuration: `config/database.js`
-1. Create the database schema: `node scripts/create_database.js`
-1. Launch: `node server.js`
-1. Visit in your browser at: `http://localhost:8080`
+## Usage
 
+A app in which you can log resturaunts visited and the one you'd like to visit someday.
 
-Licence: 1
+## Tests
+
+no tests were performed in the making of this project.
+
+## License
+
+MIT
+(https://opensource.org/licenses/MIT)
+
+## Contributors
+
+Soheab Khan
+
+## Questions
+
+If you have any questions feel free to reach out to me at:
+<br>
+[skhangns@gmail.com](mailto:skhangns@gmail.com)
+<br>
+[GitHub](https://github.com/skhangns@gmail.com)
