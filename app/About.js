@@ -17,13 +17,13 @@ let existsUpdateSet = async (request) =>{
     //console.log(rows[0])
     if (rows[0].length>0){
 
-        let sql = `UPDATE users SET users.about_me=${request.body.text} WHERE id=${request.user.id}`;
+        let sql = `UPDATE users SET users.about_me='${request.body.text}' WHERE id=${request.user.id}`;
         console.log(sql);
         connection.query(sql,function(err,results){
             //console.log("this is the console.log",results)
           })
     } else {
-        let sql =`UPDATE users SET users.about_me=${request.body.text} WHERE id=${request.user.id}`
+        let sql =`UPDATE users SET users.about_me='${request.body.text}' WHERE id=${request.user.id}`
         console.log(sql);
         connection.query(sql,function(err, rows) {if(err){console.error(err)}})
     }
