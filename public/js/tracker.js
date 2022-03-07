@@ -34,6 +34,6 @@ const trackerForm = document.getElementById("trackerForm")
                 'Content-Type': 'application/json',
             },
             body:JSON.stringify(postBody)
-        }).then(window.location.reload())
+        }).then(function(){window.location.reload()})
     })
 }
