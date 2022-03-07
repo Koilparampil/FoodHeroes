@@ -88,9 +88,12 @@ module.exports = function (app, passport) {
 	// =====================================
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
-	app.get('/profile', isLoggedIn, function(req, res) {
+	app.get('/profile', isLoggedIn, async function(req, res) {
+		let aboutMeData = await connection.promise().query(`SELECT about_me FROM users WHERE user_id = ${req.user.id}`)
+		console.log(aboutMeData);
 		res.render('profile.ejs', {
-			user : req.user // get the user out of session and pass to template
+			user : req.user, // get the user out of session and pass to template
+			aboutme: aboutMeData[0] || ''
 		});
 		//console.log(req.user)
 	});
@@ -117,6 +120,7 @@ module.exports = function (app, passport) {
 			want2Go: want2Go,
 			hasBeen: hasBeen
 		});
+	
 	})
 
   app.get("/welcomePage", isLoggedIn, function (req, res) {
