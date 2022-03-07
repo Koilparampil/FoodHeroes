@@ -30,6 +30,8 @@ app.use(bodyParser.json());
 
 app.set("view engine", "ejs"); // set up ejs for templating
 
+
+
 // required for passport
 app.use(
   session({
@@ -48,3 +50,4 @@ require("./app/routes.js")(app, passport); // load our routes and pass in our ap
 
 // launch ======================================================================
 app.listen(port, () => console.log(`listening on port ${port}`));
+

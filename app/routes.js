@@ -2,6 +2,7 @@
 var bcrypt = require('bcrypt-nodejs');
 var mysql = require('mysql2');
 var dbconfig = require('../config/database');
+const express = require("express");
 
 var connection = mysql.createConnection(dbconfig.connection);
 connection.connect();
@@ -124,8 +125,11 @@ module.exports = function(app, passport) {
 		connection.query(`UPDATE users SET password='${bcrypt.hashSync(req.body.password)}' WHERE username='${req.user.username}';`, function(err,rows){if(err){console.error(err)}})
 		res.redirect('/welcomePage')
 	});
-
+//reset password
+		
+	
 };
+
 
 // route middleware to make sure
 function isLoggedIn(req, res, next) {
