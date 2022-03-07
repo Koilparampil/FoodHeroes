@@ -133,53 +133,6 @@ module.exports = function (app, passport) {
     res.redirect("/");
   });
 
-<<<<<<< HEAD
-  // =====================================
-  // Google Authentication ===============
-  // =====================================
-  app.get(
-    "/auth/google",
-    passport.authenticate("google", { scope: ["email", "profile"] })
-  );
-  app.get(
-    "/google/callback",
-    passport.authenticate("google", {
-      successRedirect: "/choosePassword",
-      failureRedirect: "/",
-    })
-  );
-  app.get("/choosePassword", function (req, res) {
-    // render the page and pass in any flash data if it exists
-    //console.log(req.user)
-    connection.query(
-      `SELECT password FROM users WHERE username = '${req.user.username}'`,
-      function (err, rows) {
-        if (err) throw error;
-        //console.log(rows[0].password)
-        if (!(rows[0].password === null)) {
-          console.log("theres already a Password");
-          res.redirect("/welcomePage");
-        } else {
-          res.render("signupG.ejs", { message: req.flash("signupGMessage") });
-        }
-      }
-    );
-  });
-  app.post("/signupG", function (req, res) {
-    //console.log(req)
-    connection.query(
-      `UPDATE users SET password='${bcrypt.hashSync(
-        req.body.password
-      )}' WHERE username='${req.user.username}';`,
-      function (err, rows) {
-        if (err) {
-          console.error(err);
-        }
-      }
-    );
-    res.redirect("/welcomePage");
-  });
-=======
 	// =====================================
 	// Google Authentication ===============
 	// =====================================
@@ -211,7 +164,6 @@ module.exports = function (app, passport) {
 		connection.query(`UPDATE users SET password='${bcrypt.hashSync(req.body.password)}' WHERE username='${req.user.username}';`, function(err,rows){if(err){console.error(err)}})
 		res.redirect('/welcomePage')
 	});
->>>>>>> f785d8a2f0f2a9ea6a184bdd3939eeedce39002d
 
 
 
