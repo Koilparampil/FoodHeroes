@@ -67,16 +67,7 @@ module.exports = function (app, passport) {
   );
 
 
-  // =====================================
-  // PROFILE SECTION =========================
-  // =====================================
-  // we will want this protected so you have to be logged in to visit
-  // we will use route middleware to verify this (the isLoggedIn function)
-  app.get("/profile", isLoggedIn, function (req, res) {
-    res.render("profile.ejs", {
-      user: req.user, // get the user out of session and pass to template
-    });
-  });
+
 
   app.get("/aboutus", function (req, res) {
     res.render("aboutus.ejs", {
@@ -89,11 +80,11 @@ module.exports = function (app, passport) {
 	// we will want this protected so you have to be logged in to visit
 	// we will use route middleware to verify this (the isLoggedIn function)
 	app.get('/profile', isLoggedIn, async function(req, res) {
-		let aboutMeData = await connection.promise().query(`SELECT about_me FROM users WHERE user_id = ${req.user.id}`)
-		console.log(aboutMeData);
+		let aboutMeData = await connection.promise().query(`SELECT about_me FROM users WHERE id = ${req.user.id}`)
+		console.log(aboutMeData[0][0]);
 		res.render('profile.ejs', {
 			user : req.user, // get the user out of session and pass to template
-			aboutme: aboutMeData[0] || ''
+			dummyVar: aboutMeData[0][0]
 		});
 		//console.log(req.user)
 	});
