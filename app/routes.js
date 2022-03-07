@@ -83,7 +83,20 @@ module.exports = function(app, passport) {
 			});
 		});
 	});
-
+	app.get('/RestaurantTracker',isLoggedIn, async function(req,res){
+		let restaurantData= await connection.promise().query(`SELECT * FROM restaurants WHERE user_id = ${req.user.id}`)
+		//console.log(restaurantData[0]);
+		let hasBeen=[]
+		let want2Go=[]
+		restaurantData[0].forEach((item)=> item.has_been===1 ? hasBeen.push(item):want2Go.push(item))
+		//console.log(hasBeen);
+		//console.log(want2Go);
+		res.render('resTracker.ejs',{
+			user: req.user,
+			want2Go: want2Go,
+			hasBeen: hasBeen
+		});
+	})
 
 	// =====================================
 	// LOGOUT ==============================
@@ -110,7 +123,7 @@ module.exports = function(app, passport) {
 		//console.log(req.user)
 		connection.query(`SELECT password FROM users WHERE username = '${req.user.username}'`, function(err,rows){
 			if (err) throw error;
-			console.log(rows[0].password)
+			//console.log(rows[0].password)
 			if(!(rows[0].password===null)){
 				console.log("theres already a Password")
 				res.redirect('/welcomePage')
