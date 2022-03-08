@@ -32,11 +32,17 @@ MIT
 ## Contributors
 
 Soheab Khan
+Chris Koilparampil
+Lloyd Ting
 
 ## Questions
 
-If you have any questions feel free to reach out to me at:
+If you have any questions feel free to reach out to us at:
 <br>
 [skhangns@gmail.com](mailto:skhangns@gmail.com)
+[koilparampil0126@gmail.com](mailto:koilparampil0126@gmail.com)
+[llting592@gmail.com](mailto:llting592@gmail.com)
 <br>
-[GitHub](https://github.com/skhangns@gmail.com)
+[skhangns](https://github.com/skhangns)
+[Koilparampil](https://github.com/Koilparampil)
+[llting592](https://github.com/llting592)
