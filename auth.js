@@ -1,3 +1,6 @@
+//created this with the help of https://www.youtube.com/watch?v=Q0a0594tOrc&t=269s&ab_channel=KrisFoster
+//unsure about some of it
+
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 require("dotenv").config();
@@ -20,7 +23,7 @@ passport.use(
       //console.log(profile.emails[0].value)
       var newUserMysql = {
         username: profile.emails[0].value,
-        password: null, // use the generateHash function in our user model
+        password: null, //will set on the next page, cannot access site without it
         l_name: profile.name.familyName,
         f_name: profile.name.givenName,
       };
@@ -34,6 +37,7 @@ passport.use(
           }
         }
       );
+      //checking if user exists
       connection.query(
         "SELECT * FROM users WHERE username = ?",
         [profile.emails[0].value],
@@ -42,6 +46,7 @@ passport.use(
           if (rows.length) {
             return done(null, newUserMysql);
           } else {
+            //inserting user into the databse
             connection.query(
               `INSERT INTO users ( username, first_name, last_name ) values ('${profile.emails[0].value}','${profile.name.givenName}','${profile.name.familyName}')`,
               function (err, rows) {

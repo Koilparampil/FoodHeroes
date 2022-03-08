@@ -1,9 +1,9 @@
 // config/passport.js
 
-// load all the things we need
+//load in the local strategy
 var LocalStrategy   = require('passport-local').Strategy;
 
-// load up the user model
+// load up the user 'model'
 var mysql = require('mysql2');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
@@ -11,7 +11,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.connect();
 connection.query('USE ' + dbconfig.database);
 
-// expose this function to our app using module.exports
+// expose this to our server 
 module.exports = function(passport) {
 
     // =========================================================================
@@ -20,7 +20,6 @@ module.exports = function(passport) {
     // required for persistent login sessions
     // passport needs ability to serialize and unserialize users out of session
 
-    // used to serialize the user for the session
     passport.serializeUser((user, cb) => {
         cb(null, user);
       });
@@ -32,13 +31,11 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL SIGNUP ============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
 
     passport.use(
         'local-signup',
         new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
+            // by default, local strategy uses username and password, we will use email with the Google strat
             usernameField : 'username',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
@@ -56,11 +53,11 @@ module.exports = function(passport) {
                     // create the user
                     var newUserMysql = {
                         username: username,
-                        password: bcrypt.hashSync(password, null, null),// use the generateHash function in our user model
+                        password: bcrypt.hashSync(password, null, null),// use the generateHash function in our user
                         l_name: req.body.l_name,
                         f_name: req.body.f_name
                     };
-
+                    //insert the user into our data base and set the id of the user to the id the databse provides.
                     connection.query(`INSERT INTO users ( username, password,first_name,last_name ) values ('${newUserMysql.username}','${newUserMysql.password}','${newUserMysql.f_name}','${newUserMysql.l_name}')`,function(err, rows) {if(err){console.error(err)}});
                     connection.query('SELECT LAST_INSERT_ID() AS id', function (error, results, fields) {
                         if (error) throw error;
@@ -83,13 +80,13 @@ module.exports = function(passport) {
     passport.use(
         'local-login',
         new LocalStrategy({
-            // by default, local strategy uses username and password, we will override with email
+            // by default, local strategy uses username and password, we will override with email when using google login
             usernameField : 'username',
             passwordField : 'password',
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, username, password, done) { // callback with email and password from our form
-            
+            //check if user exists in the database, if not then set the flash message to user not found
             connection.query("SELECT * FROM users WHERE username = ?",[username], function(err, rows){
                 if (err)
                     return done(err);
