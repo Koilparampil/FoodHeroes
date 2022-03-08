@@ -48,7 +48,7 @@ module.exports = function (app, passport) {
   // =====================================
   // show the signup form
   app.get("/signup", function (req, res) {
-    // render the page and pass in any flash data if it exists
+    // render the page and pass in any flash data
     res.render("signup.ejs", { message: req.flash("signupMessage") });
   });
   app.get("/signupFailure", function (req, res) {
@@ -71,14 +71,13 @@ module.exports = function (app, passport) {
 
   app.get("/aboutus", function (req, res) {
     res.render("aboutus.ejs", {
-      user: req.user, // get the user out of session and pass to template
+      user: req.user, // get the user out of the session and pass it to the template
     });
   });
 	// =====================================
 	// Logged In SECTION =========================
 	// =====================================
-	// we will want this protected so you have to be logged in to visit
-	// we will use route middleware to verify this (the isLoggedIn function)
+	// we will want this protected so we need to use the isLoggedIn Function
 	app.get('/profile', isLoggedIn, async function(req, res) {
 		let aboutMeData = await connection.promise().query(`SELECT about_me FROM users WHERE id = ${req.user.id}`)
 		console.log(aboutMeData[0][0]);
@@ -163,7 +162,7 @@ module.exports = function (app, passport) {
 
 
 }
-// route middleware to make sure
+// route middleware to make sure the user is logged in 
 function isLoggedIn(req, res, next) {
   req.user ? next() : res.sendStatus(401);
 }

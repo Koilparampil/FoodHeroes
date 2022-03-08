@@ -36,11 +36,11 @@ res.post('/submit', (req,res) =>{
 
 
 let existsUpdateSet = async (request) =>{
-    let rows = await connection.promise().query(`SELECT * FROM restaurants WHERE restaurant_name = "${request.body.restaurantName}" AND user_id='${request.user.id}'`)
+    let rows = await connection.promise().query(`SELECT * FROM restaurants WHERE restaurant_name = "${request.body.restaurantName}" AND user_id=${request.user.id}`)
     //console.log(rows[0])
     if (rows[0].length>0){
 
-        let sql = `UPDATE restaurants SET restaurants.has_been=${request.body.boolVal} WHERE restaurant_name="${request.body.restaurantName}" AND user_id='${request.user.id}'`;
+        let sql = `UPDATE restaurants SET restaurants.has_been=${request.body.boolVal} WHERE restaurant_name="${request.body.restaurantName}" AND user_id=${request.user.id}`;
         console.log(sql);
         connection.query(sql,function(err,results){
             //console.log("this is the console.log",results)
