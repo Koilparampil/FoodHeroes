@@ -1,3 +1,17 @@
 .boxed{
     border: 1px solid black ;
 }
+
+@media screen and (max-width: 720px) {
+    .column {
+      width: 50%;
+    }
+  }
+  
+  
+  @media screen and (max-width: 420px) {
+    .column {
+      width: 100%;
+    }
+  }
+  
