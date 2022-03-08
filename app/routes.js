@@ -150,7 +150,7 @@ module.exports = function (app, passport) {
 				console.log("theres already a Password")
 				res.redirect('/welcomePage')
 			}else{
-				res.render('signupG.ejs', { message: req.flash('signupGMessage') });
+				res.render('signUpG.ejs', { message: req.flash('signupGMessage') });
 			}
 		})
 	});
